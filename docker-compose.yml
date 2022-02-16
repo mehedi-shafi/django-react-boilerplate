@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+
+    backend:
+        restart: unless-stopped
+
+        build:
+            context: .
+            dockerfile: ./api/Dockerfile
+
+        volumes:
+            - static_volume:/app/api/django_static
+            - type: bind
+              source: ${MEDIA_ROOT}
+              target: /app/media/
+
+        expose:
+            - 8000
+
+volumes:
+    static_volume: {}

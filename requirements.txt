@@ -4,7 +4,7 @@ Django==4.0.2
 djangorestframework==3.13.1
 djangorestframework-simplejwt==4.8.0
 djoser==2.1.0
-psycopg2==2.9.3
+psycopg2-binary==2.9.3
 pylint==2.12.2
 black==22.1.0
 django-cors-headers==3.11.0
