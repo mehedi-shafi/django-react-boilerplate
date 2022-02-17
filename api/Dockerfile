@@ -3,11 +3,12 @@ from python:3.8-slim-buster
 WORKDIR /app
 
 ADD ./requirements.txt /app/api/
-ADD ./.env /app/
 
 RUN pip install --upgrade pip
 RUN pip install gunicorn
 RUN pip install -r api/requirements.txt
+
+ADD ./.env /app/
 
 ADD ./api/entrypoint.sh /app/api/
 ADD ./api /app/api/
