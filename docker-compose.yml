@@ -2,6 +2,29 @@ version: '3.1'
 
 services:
 
+    frontend:
+        restart: unless-stopped
+        container_name: django-react-boilerplate-frontend
+
+        build:
+            context: .
+            dockerfile: ./frontend/Dockerfile
+
+        ports:
+            - 80:${PORT:-80}
+
+        volumes:
+            - static_volume:/app/api/django_static/
+            - type: bind
+              source: ./nginx/
+              target: /etc/nginx/conf.d
+            - type: bind
+              source: ${MEDIA_ROOT}
+              target: /media/app_media/
+
+        depends_on:
+            - backend
+
     backend:
         restart: unless-stopped
         container_name: django-react-boilerplate-backend
@@ -11,16 +34,13 @@ services:
             dockerfile: ./api/Dockerfile
 
         volumes:
-            - static_volume:/app/api/django_static
+            - static_volume:/app/api/django_static/
             - type: bind
               source: ${MEDIA_ROOT}
               target: /app/media/
 
         expose:
             - 8000
-
-        ports:
-            - 8000:8000
 
         depends_on:
             - db
