@@ -11,7 +11,7 @@ services:
             dockerfile: ./frontend/Dockerfile
 
         ports:
-            - 80:${PORT:-80}
+            - ${PORT:-80}:80
 
         volumes:
             - static_volume:/app/api/django_static/
