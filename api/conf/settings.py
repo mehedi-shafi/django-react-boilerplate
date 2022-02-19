@@ -98,6 +98,19 @@ TEMPLATES = [
     },
 ]
 
+DJOSER = {
+    # "LOGIN_FIELD": "email",
+    "PASSWORD_RESET_CONFIRM_URL": "#/password/reset/confirm/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_URL": "#/username/reset/confirm/{uid}/{token}",
+    "ACTIVATION_URL": "#/activate/{uid}/{token}",
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "SET_PASSWORD_RETYPE": True,
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "LOGOUT_ON_PASSWORD_CHANGE": True,
+    "SERIALIZERS": {"token": "conf.serializers.TokenAndUserInfoSerializer"},
+    "PERMISSIONS": {"user_create": ["rest_framework.permissions.IsAdminUser"]},
+}
+
 WSGI_APPLICATION = 'conf.wsgi.application'
 
 
