@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
     },
     welcomeText: {
-        color: theme.palette.text.primary,
+        color: theme.palette.text.white,
     },
 }));
 

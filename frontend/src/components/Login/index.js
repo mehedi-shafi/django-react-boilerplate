@@ -9,16 +9,14 @@ import { AuthContext } from '../../contexts/AuthContext';
 let Login = () => {
     let classes = useStyles();
     let { userInfo, onLoginSuccess } = useContext(AuthContext);
-    let loginStatePrimary = {
+    let [values, setValues] = useState({
         username: '',
         password: '',
-    };
-    let notificationStatePrimary = {
+    });
+    let [notification, setNotification] = useState({
         severity: 'warning',
         message: '',
-    };
-    let [values, setValues] = useState(loginStatePrimary);
-    let [notification, setNotification] = useState(notificationStatePrimary);
+    });
 
     if (userInfo) {
         return <Navigate to="/" />;
@@ -36,7 +34,10 @@ let Login = () => {
         axios
             .post('/api/auth/token/login/', values)
             .then((response) => {
-                setValues(loginStatePrimary);
+                setValues({
+                    username: '',
+                    password: '',
+                });
                 if (response.data && response.data.auth_token) {
                     onLoginSuccess(
                         response.data.auth_token,
@@ -45,7 +46,13 @@ let Login = () => {
                 }
             })
             .catch((error) => {
-                setValues(loginStatePrimary);
+                console.error(error);
+                console.log(error);
+                console.log(error.response);
+                setValues({
+                    username: '',
+                    password: '',
+                });
                 if (
                     error.response.data &&
                     error.response.data.non_field_errors
@@ -59,7 +66,10 @@ let Login = () => {
     };
 
     let clearNotification = () => {
-        setNotification(notificationStatePrimary);
+        setNotification({
+            severity: 'warning',
+            message: '',
+        });
     };
 
     return (

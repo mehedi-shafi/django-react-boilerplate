@@ -1,7 +1,8 @@
 import React, { createContext, useState } from 'react';
 
-let TOKEN_KEY = '@survey/token';
-let USER_DATA = '@survey/user_data';
+let TOKEN_KEY = '@drb/token';
+// you may not want to keep the userinfo in local-storage. its up to you.
+let USER_DATA = '@drb/user_data';
 
 export let AuthContext = createContext();
 
@@ -34,8 +35,7 @@ export let AuthProvider = (props) => {
         <AuthContext.Provider
             value={{ token, userInfo, onLoginSuccess, onLogoutSuccess }}
         >
-            {' '}
-            {props.children}{' '}
+            {props.children}
         </AuthContext.Provider>
     );
 };

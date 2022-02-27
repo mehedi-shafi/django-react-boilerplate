@@ -54,7 +54,7 @@ let Topbar = (props) => {
                     Simple Survey
                 </Link>
                 <div style={{ flexGrow: 1 }} />
-                {user && userInfo ? (
+                {userInfo ? (
                     <>
                         <Typography
                             className={classes.welcomeText}
@@ -85,36 +85,8 @@ let Topbar = (props) => {
                                 horizontal: 'right',
                             }}
                             open={Boolean(anchor)}
-                        >
-                            {userInfo.is_superuser && (
-                                <Link className={classes.link} to="/tk">
-                                    <MenuItem> Tk </MenuItem>
-                                </Link>
-                            )}
-                            {userInfo.is_superuser && (
-                                <Link
-                                    className={classes.link}
-                                    to="/lender/credit"
-                                >
-                                    <MenuItem> Lender Credit </MenuItem>
-                                </Link>
-                            )}
-                            {userInfo.is_superuser && (
-                                <Link
-                                    className={classes.link}
-                                    to="/lender/operations"
-                                >
-                                    <MenuItem> Lender Operations </MenuItem>
-                                </Link>
-                            )}
-                            {userInfo.is_superuser && (
-                                <Link className={classes.link} to="/tkadmin">
-                                    <Divider />
-                                    <MenuItem> Admin panel </MenuItem>
-                                </Link>
-                            )}
-                            {userInfo.is_superuser && <Divider />}
-                            <MenuItem> Change Password </MenuItem> <Divider />
+                        >                            
+                            <MenuItem > Change Password </MenuItem> <Divider />
                             <MenuItem onClick={onLogoutClick}>Log out</MenuItem>
                         </Menu>
                     </>

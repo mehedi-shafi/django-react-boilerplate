@@ -2,24 +2,28 @@ import React from 'react';
 import MuiSnackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
-let Alert = (props) => {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-};
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
-let Snackbar = ({ alert, handleClose }) =>
-    alert.show ? (
-        <MuiSnackbar
-            open={true}
-            autoHideDuration={3000}
-            onClose={handleClose}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        >
-            <Alert onClose={handleClose} severity={alert.severity}>
-                {alert.message}
-            </Alert>
-        </MuiSnackbar>
-    ) : (
-        <></>
-    );
+let Snackbar = ({ alert, handleClose }) => {
+    return (
+        alert.show ? (
+            <MuiSnackbar
+                open={true}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+                <Alert onClose={handleClose} severity={alert.severity}>
+                    {alert.message}
+                </Alert>
+            </MuiSnackbar>
+        ) : (
+            <></>
+        )
+    )
+}
+ 
 
 export default Snackbar;
