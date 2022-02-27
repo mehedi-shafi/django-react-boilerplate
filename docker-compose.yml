@@ -13,14 +13,17 @@ services:
         ports:
             - ${PORT:-80}:80
 
+        environment:
+            - MEDIA_ROOT
+
         volumes:
             - static_volume:/app/api/django_static/
             - type: bind
-              source: ./nginx/
-              target: /etc/nginx/conf.d
+              source: ${MEDIA_VOLUME:-$MEDIA_ROOT}
+              target: ${MEDIA_ROOT}
             - type: bind
-              source: ${MEDIA_ROOT}
-              target: /media/app_media/
+              source: ${LOG_VOLUME:-LOG_FILE_DIRECTORY}
+              target: ${LOG_FILE_DIRECTORY}
 
         depends_on:
             - backend
@@ -36,8 +39,8 @@ services:
         volumes:
             - static_volume:/app/api/django_static/
             - type: bind
-              source: ${MEDIA_ROOT}
-              target: /app/media/
+              source: ${MEDIA_VOLUME:-$MEDIA_ROOT}
+              target: ${MEDIA_ROOT}
 
         expose:
             - 8000
