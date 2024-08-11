@@ -42,8 +42,9 @@ services:
               source: ${MEDIA_VOLUME:-$MEDIA_ROOT}
               target: ${MEDIA_ROOT}
 
-        expose:
-            - 8000
+        ports:
+            - 8000:8000
+        
 
         depends_on:
             - db

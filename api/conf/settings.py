@@ -81,11 +81,12 @@ REST_FRAMEWORK = {
     "rest_framework.schemas.coreapi.AutoSchema",
 }
 
+SETTINGS_PATH = environ.Path(__file__) - 1
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(SETTINGS_PATH, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
