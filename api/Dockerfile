@@ -1,4 +1,4 @@
-from python:3.8-slim-buster
+from python:3.12-bullseye
 
 WORKDIR /app
 

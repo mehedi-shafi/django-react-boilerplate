@@ -1,7 +1,5 @@
-version: '3.1'
-
+version: "3.3"
 services:
-
     frontend:
         restart: unless-stopped
         container_name: django-react-boilerplate-frontend
@@ -14,16 +12,11 @@ services:
             - ${PORT:-80}:80
 
         environment:
-            - MEDIA_ROOT
+            - MEDIA_ROOT=${MEDIA_ROOT}
 
         volumes:
             - static_volume:/app/api/django_static/
-            - type: bind
-              source: ${MEDIA_VOLUME:-$MEDIA_ROOT}
-              target: ${MEDIA_ROOT}
-            - type: bind
-              source: ${LOG_VOLUME:-LOG_FILE_DIRECTORY}
-              target: ${LOG_FILE_DIRECTORY}
+            - media_volume:${MEDIA_ROOT}
 
         depends_on:
             - backend
@@ -38,20 +31,17 @@ services:
 
         volumes:
             - static_volume:/app/api/django_static/
-            - type: bind
-              source: ${MEDIA_VOLUME:-$MEDIA_ROOT}
-              target: ${MEDIA_ROOT}
+            - media_volume:${MEDIA_ROOT}
 
         ports:
             - 8000:8000
-        
 
         depends_on:
             - db
 
     db:
         restart: unless-stopped
-        image: postgres:10-alpine
+        image: postgres:15-alpine
         container_name: django-react-boilerplate-db
         expose:
             - 5432
@@ -64,14 +54,10 @@ services:
             - APP_DB_PASS=${DATABASE_PASSWORD}
 
         volumes:
-            - type: bind
-              source: ./db
-              target: /docker-entrypoint-initdb.d/
-
-            - type: bind
-              source: ${DATABASE_DATA_VOLUME:-./db/}
-              target: /var/lib/postgresql/data
-
+            - ./db:/docker-entrypoint-initdb.d/
+            - ${DATABASE_DATA_VOLUME}:/var/lib/postgresql/data
 
 volumes:
     static_volume: {}
+    media_volume: {}
+    log_volume: {}
